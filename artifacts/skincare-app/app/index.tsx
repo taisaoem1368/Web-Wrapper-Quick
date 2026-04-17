@@ -6,42 +6,44 @@ import {
   View,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const WEBAPP_URL = "https://quyen.xyz/";
 
 export default function HomeScreen() {
-  const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const [loading, setLoading] = useState(true);
 
+  if (Platform.OS === "web") {
+    return (
+      <View style={styles.webFallback}>
+        <iframe
+          src={WEBAPP_URL}
+          style={{ width: "100%", height: "100%", border: "none" }}
+          title="Skincare Tutor"
+        />
+      </View>
+    );
+  }
+
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: Platform.OS === "web" ? 67 : 0,
-          paddingBottom: Platform.OS === "web" ? 34 : 0,
-        },
-      ]}
-    >
+    <View style={styles.container}>
       <WebView
         ref={webViewRef}
         source={{ uri: WEBAPP_URL }}
         style={styles.webview}
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
-        javaScriptEnabled
-        domStorageEnabled
-        allowsInlineMediaPlayback
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        allowsInlineMediaPlayback={true}
         mediaPlaybackRequiresUserAction={false}
-        startInLoadingState={false}
-        allowsBackForwardNavigationGestures
-        sharedCookiesEnabled
-        thirdPartyCookiesEnabled
+        allowsBackForwardNavigationGestures={true}
+        sharedCookiesEnabled={true}
+        thirdPartyCookiesEnabled={true}
+        originWhitelist={["*"]}
       />
       {loading && (
-        <View style={styles.loadingOverlay}>
+        <View style={styles.loadingOverlay} pointerEvents="none">
           <ActivityIndicator size="large" color="#e88fa3" />
         </View>
       )}
@@ -56,11 +58,18 @@ const styles = StyleSheet.create({
   },
   webview: {
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  webFallback: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
   },
 });

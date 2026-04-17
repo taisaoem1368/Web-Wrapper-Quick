@@ -1,0 +1,27 @@
+kind = "mobile"
+previewPath = "/"
+title = "Skincare Tutor"
+version = "1.0.0"
+id = "artifacts/skincare-app"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+ensurePreviewReachable = "/status"
+name = "expo"
+paths = [ "/" ]
+localPort = 22961
+
+[services.development]
+run = "pnpm --filter @workspace/skincare-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/skincare-app", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/skincare-app", "run", "serve" ]
+
+[services.env]
+PORT = "22961"
+BASE_PATH = "/"

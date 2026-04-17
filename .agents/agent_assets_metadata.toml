@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "6kPawptAp56rVYIFWdcOA"
+uri = "file://artifacts/skincare-app/assets/images/icon.png"
+type = "image"
+title = "skincare app icon"

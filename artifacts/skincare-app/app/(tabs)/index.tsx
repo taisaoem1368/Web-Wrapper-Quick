@@ -8,7 +8,7 @@ import {
 import { WebView } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const WEBAPP_URL = "https://skin-care-tutor--quyenho1368.replit.app/";
+const WEBAPP_URL = "https://quyen.xyz/";
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
